@@ -44,11 +44,27 @@ git clone https://github.com/hyddd/taskboard_skill.git taskboard
 为了获得最佳体验，建议在你的 `AGENTS.md` 中添加以下协议：
 
 ```markdown
-## Task Protocol
-**Trigger:** "【任务】"
-1. **Initiate**: Create card in 'Todo' -> Move to 'Doing' -> Announce.
-2. **Execute**: Perform the task.
-3. **Finalize**: Update content with result -> Move to 'Done'.
+## Task Protocol (TaskBoard Integration)
+**Trigger:** When user input contains "【任务】" (or you determine a task needs tracking):
+
+### 1. Initiate (Create & Start)
+1.  **Call `taskboard` skill** immediately.
+2.  **Create Card:** In the "Todo" column.
+    - Title: The core task name.
+    - Content: Full context + "Owner: Clawdbot".
+3.  **Start Execution:** Immediately move the card to the "Doing" (In Progress) column.
+4.  **Announce:** "Task [Title] created and started."
+
+### 2. Execute & Update
+1.  **Perform the work:** Use available tools (web_search, etc.) to fulfill the task.
+2.  **If Blocked:**
+    - Move card to "Blocked" column.
+    - Update Content: Add a section `**⚠️ BLOCKER:** [Reason]`.
+    - Notify user of the blocker.
+3.  **If Successful:**
+    - Update Content: Append the **FINAL RESULT/SUMMARY** to the card content. This is crucial for future reference.
+    - Move card to "Done" column.
+    - Report completion to user with a brief summary.
 ```
 
 ---
@@ -99,9 +115,25 @@ In your conversation with Clawdbot:
 For the best experience, it is recommended to add the following protocol to your `AGENTS.md`:
 
 ```markdown
-## Task Protocol
-**Trigger:** "【任务】"
-1. **Initiate**: Create card in 'Todo' -> Move to 'Doing' -> Announce.
-2. **Execute**: Perform the task.
-3. **Finalize**: Update content with result -> Move to 'Done'.
+## Task Protocol (TaskBoard Integration)
+**Trigger:** When user input contains "【任务】" (or you determine a task needs tracking):
+
+### 1. Initiate (Create & Start)
+1.  **Call `taskboard` skill** immediately.
+2.  **Create Card:** In the "Todo" column.
+    - Title: The core task name.
+    - Content: Full context + "Owner: Clawdbot".
+3.  **Start Execution:** Immediately move the card to the "Doing" (In Progress) column.
+4.  **Announce:** "Task [Title] created and started."
+
+### 2. Execute & Update
+1.  **Perform the work:** Use available tools (web_search, etc.) to fulfill the task.
+2.  **If Blocked:**
+    - Move card to "Blocked" column.
+    - Update Content: Add a section `**⚠️ BLOCKER:** [Reason]`.
+    - Notify user of the blocker.
+3.  **If Successful:**
+    - Update Content: Append the **FINAL RESULT/SUMMARY** to the card content. This is crucial for future reference.
+    - Move card to "Done" column.
+    - Report completion to user with a brief summary.
 ```
